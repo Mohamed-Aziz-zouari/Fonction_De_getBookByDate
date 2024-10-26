@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block title %}Hello AuthorController!{% endblock %}
+
+
+
+{% block body %}
+
+ <style>
+
+  .example-wrapper {
+
+   margin: 1em auto;
+
+   max-width: 800px;
+
+   width: 95%;
+
+   font: 18px/1.5 sans-serif;
+
+  }
+
+  .example-wrapper code {
+
+   background: #F5F5F5;
+
+   padding: 2px 6px;
+
+  }
+
+ </style>
+
+
+
+ <div class="example-wrapper">
+
+
+
+
+
+ <div class="example-wrapper">
+
+
+
+
+
+{{form_start(f)}}
+{{form_label(f.title,"title :")}}
+
+{{form_widget(f.title,{'attr':{'class':'form-control'}})}}
+
+{{form_widget(f.Submit,{'attr':{'class':'btn btn-primary'}})}}
+
+{{form_end(f)}}
+
+ </div>
+
+ {% endblock %}
