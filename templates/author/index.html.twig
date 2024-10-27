@@ -3,8 +3,10 @@
         <th>Id</th>
         <th>Username</th>
         <th>Email</th>
+        <th>nb_books</th>
         <th>Delete</th>
         <th>Update</th>
+        
         </tr>
     
     {% for author in authors %}
@@ -13,6 +15,7 @@
     <td>{{author.id}}</td>
     <td>{{author.username}}</td>
     <td>{{author.email}}</td>
+    <td>{{author.NbBooks}}</td>
     <td><a href='{{ path ('remove_author' , { 'id':author.id } ) }}'>delete</a><td>
     <td><a href='{{ path ('app_author_update' , { 'id':author.id } ) }}'>update</a><td>
     

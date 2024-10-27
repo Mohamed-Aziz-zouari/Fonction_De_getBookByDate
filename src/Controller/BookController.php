@@ -13,6 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\BookType;
 use App\Form\DateBookType;
+use App\Form\RechercheType;
 class BookController extends AbstractController
 {
     // #[Route('/Addbook', name: 'add_book')]
@@ -114,6 +115,35 @@ class BookController extends AbstractController
     //     return new Response ('book updated');
     // }
 
+
+    #[Route('/BooksByRef', name: 'BooksByref')]
+    public function getBookByref(BookRepository $repository,Request $req)
+    {
+        $form = $this->createForm(RechercheType::class);
+        $form->handleRequest($req);
+        
+        if ($form->isSubmitted()) {
+            $id = $form->getData();
+            
+    
+            
+            $Books = $repository->searchBookByRef($id);
+            return $this->render('book/RefSearch.html.twig', [
+                'f' => $form->createView(),
+                'books' => $Books,
+            ]);
+        }
+    
+       
+
+        $Books= $repository-> findAll();
+        return $this->render('book/RefSearch.html.twig',[
+
+            'f'=>$form->createView(),'books' => $Books 
+      
+            ]);
+    }
+
     #[Route('/updateBook/{id}',name:'update_book')]
     public function updateBook (BookRepository $repository,ManagerRegistry $manager,Book $book ,Request $req ){
         $em=$manager->getManager();
@@ -146,4 +176,22 @@ class BookController extends AbstractController
         $em -> flush();
         return $this-> redirectToRoute('getallBooks');
     }
+
+
+    #[Route('/Books/ByNbBooks', name: 'booksNbBooks')]
+    public function listeBookByNbBook(BookRepository $repository)
+    {
+
+        $Books= $repository-> listeBookByNbBook();
+        return $this->render('book/index.html.twig', [
+            'books' => $Books 
+        ]);  
+    }
+    #[Route('/book/updateCategory', name: 'updateCategory')]
+        public function updatebookcategory(BookRepository $repository): Response
+{
+          $repository->updatebookcategory();
+
+          return $this->redirectToRoute('app_getallBooks');
+}
 }
